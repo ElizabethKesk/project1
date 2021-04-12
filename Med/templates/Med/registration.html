@@ -1,0 +1,156 @@
+﻿{% extends "med/layout.html" %}
+ 
+{% block content %}
+ 
+<html lang="ru">
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >   
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'med/content/bootstrap.min.css' %}" />
+    <script src="{% static 'med/scripts/modernizr-2.6.2.js' %}"></script>
+</head>  
+<body>
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">Регистрация</h4> 
+      <form class="needs-validation" novalidate="" method="post" action="/new-user">
+            {% csrf_token %} 
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="id_firstName">Имя</label>
+            <input type="text" class="form-control" name="firstName" id="id_firstName" placeholder="" required="">
+            <div class="invalid-feedback">
+                Требуется правильное имя.
+            </div>
+          </div>
+</div>
+<div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="id_lastName">Фамилия</label>
+            <input type="text" class="form-control" name="lastName" id="id_lastName" placeholder="" required="">
+            <div class="invalid-feedback">
+                Требуется действительная фамилия.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="id_username">Login</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">@</span>
+            </div>
+            <input type="text" class="form-control" id="id_username" name="username" placeholder="Login" required="">
+            <div class="invalid-feedback" style="width: 100%;">
+                 Ваше имя пользователя обязательно.
+            </div>
+          </div>
+            
+            <p><font size="3" color="red" face="Arial">{{error.username}}</font></p> 
+        </div>
+        <div class="mb-3">
+          <label for="email">Почта <span class="text-muted">(Обязательно)</span></label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com">
+          <div class="invalid-feedback">
+            Пожалуйста, введите корректный адрес почты!
+          </div>
+        </div>
+       
+
+        <div class="mb-3">
+          <label for="id_password1">Пароль</label>
+          <input type="password" class="form-control" id="id_password1" name="password1" placeholder="" required="">
+          <div class="invalid-feedback">
+              Пожалуйста, введите пароль.
+          </div>
+            <br><span class="helptext"><ul><li>Ваш пароль не должен совпадать с вашим именем или другой персональной информацией или быть слишком похожим на неё.</li><li>Ваш пароль должен содержать как минимум 8 символов.</li><li>Ваш пароль не может быть одним из широко распространённых паролей.</li><li>Ваш пароль не может состоять только из цифр.</li></ul></span>
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password2">Подтверждение пароля<span class="text-muted">(Обязательно)</span></label>
+          <input type="password" class="form-control" id="id_password2" name="password2" placeholder="" required="">
+        </div> 
+        <p><font size="3" color="red" face="Arial">{{error.password2}}</font></p> 
+        <div class="row">
+          <div class="col-md-5 mb-3">
+            <label for="id_target">Телосложение</label>
+            <select class="custom-select d-block w-100" id="id_target" name="target" required="">
+              <option value="">Телосложение</option>
+              <option value="trening">Эктоморф, энергичный, худой, быстрый</option>
+              <option value="losing">Эндоморф, полный, широкий и медлительный</option>
+              <option value="maintenance">Мезоморф, достаточно мускулистый, средний</option>
+            </select>
+            <div class="invalid-feedback">
+              Пожалуйста укажите ваше телосложение
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="id_activity">Дневная активность</label>
+            <select class="custom-select d-block w-100" id="id_activity" name="activity" required="">
+              <option value="">...</option>
+              <option value="minimal">Сидячий режим весь день</option>
+              <option value="low">Минимальная активность</option>
+              <option value="mid">Средняя активность</option>
+              <option value="high">Тяжелая работа и/или нагрузка</option>
+              <option value="very_high">Экстрим</option>
+            </select> 
+          </div>
+            <div class="col-md-4 mb-3">
+            <label for="id_gender">Пол</label>
+            <select class="custom-select d-block w-100" id="id_gender" name="gender" required="">
+              <option value="">...</option>
+              <option value="male">Мужской</option>
+              <option value="female">Женский</option> 
+            </select> 
+          </div>
+             </div>  
+			 
+          <div class="col-md-4 mb-3">
+            <label for="id_steps">Количество шагов в сутки</label>
+            <input type="number" class="form-control" id="id_steps" name="steps" placeholder="Укажите количество шагов в сутки" required="">
+            <div class="invalid-feedback">
+               Укажите количество шагов в сутки
+            </div>
+			</div>
+	  <div class="col-md-6 mb-3">
+            <label for="id_height">Рост</label>
+            <input type="number" class="form-control" id="id_height" name="height" placeholder="Укажите ваш рост" required="">
+            <div class="invalid-feedback">
+               Укажите ваш рост
+            </div>
+             </div> 
+            <div class="col-md-6 mb-3">
+            <label for="id_age">Возраст</label>
+            <input type="number" class="form-control" id="id_age" name="age" placeholder="Укажите ваш возраст" required="">
+            <div class="invalid-feedback">
+               Укажите ваш возраст
+            </div> 
+</div> 			
+          <div class="col-md-6 mb-3">
+            <label for="id_weight">Вес</label>
+            <input type="number" class="form-control" id="id_weight" name="weight" placeholder="Укажите ваш вес" required="">
+            <div class="invalid-feedback">
+               Укажите ваш вес
+            </div>
+          </div>
+        
+        <hr class="mb-4">  
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегестрироваться</button>
+      </form>
+    </div>
+    <!--
+     <form class="needs-validation" novalidate="" method="post" action="/new-user">
+ 
+          <label for="id_username">Имя пользователя:</label>
+         <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username"><br><span class="helptext">Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</span>
+          <label for="id_password1">Пароль:</label><input type="password" name="password1" required="" id="id_password1"><br><span class="helptext"><ul>
+          <li>Ваш пароль не должен совпадать с вашим именем или другой персональной информацией или быть слишком похожим на неё.</li><li>Ваш пароль должен содержать как минимум 8 символов.</li><li>Ваш пароль не может быть одним из широко распространённых паролей.</li><li>Ваш пароль не может состоять только из цифр.</li></ul></span>
+          <label for="id_password2">Подтверждение пароля:</label><input type="password" name="password2" required="" id="id_password2"><br><span class="helptext">Для подтверждения введите, пожалуйста, пароль ещё раз.</span>
+            <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегестрироваться</button>
+      </form> -->
+</body>
+</html>
+
+{% endblock %}

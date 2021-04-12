@@ -1,0 +1,37 @@
+﻿{% extends "med/layout.html" %}
+ 
+{% block content %}
+ 
+<html lang="ru">
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >   
+
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'med/content/bootstrap.min.css' %}" />
+    <script src="{% static 'med/scripts/modernizr-2.6.2.js' %}"></script>
+</head>
+
+<body >  
+     
+    <section class="jumbotron text-center">
+    <div class="container">
+      <h1> Медицинский справочник</h1>
+      <p class="lead text-muted">Справочник обо всём, что касается медицины</p>
+      <p>
+
+      </p>
+    </div>
+  </section> 
+   
+     <h3 class="my-5">Самые важные вещи из мира медицины!</h3>
+    <hr/>
+      <div class="row"> 
+          
+      
+       </div>  
+</body>
+</html>
+
+{% endblock %}

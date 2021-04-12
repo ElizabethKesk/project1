@@ -1,0 +1,45 @@
+﻿{% extends "med/layout.html" %}
+ 
+{% block content %}
+ 
+<html lang="ru">
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >   
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'med/content/bootstrap.min.css' %}" />
+    <script src="{% static 'med/scripts/modernizr-2.6.2.js' %}"></script>
+</head>
+
+<body>
+      
+     <hr/>
+      <h1> Медицинский справочник</h1>
+        <hr/>
+   <form method="post" action="/auth">
+       {% csrf_token %} 
+       <div class="container">
+           
+  <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>   
+       <label for="loginField" class="sr-only">Username</label>
+       <input type="text" id="loginField" name="username" class="form-control" placeholder="Username"  required autofocus="">
+       <label for="inputPassword" class="sr-only">Password</label>
+       <input type="password" id="passwordField" name="password" class="form-control mt-2" placeholder="Password"  required>
+       <div class="checkbox mb-3">
+         <label>
+             <input type="checkbox" value="remember-me"> Запомнить
+             
+  <a class="btn btn-sm" href="{% url 'new-user' %}">Создать аккаунт</a>    
+             
+        <p><font size="3" color="red" face="Arial">{{error}}</font></p> 
+    </label>
+        </div>
+  <button class="btn btn-lg btn-primary" type="submit">Войти</button>
+      
+  </div> 
+  <p class="mt-5 mb-3 text-muted"></p>
+    </form>
+</body>
+</html>
+{% endblock %}

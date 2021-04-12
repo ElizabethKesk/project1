@@ -1,0 +1,177 @@
+﻿{% extends "med/layout.html" %}
+ <!DOCTYPE HTML>
+{% block content %}
+ 
+<html lang="ru">
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >   
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'med/content/bootstrap.min.css' %}" />
+    
+    <script src="{% static 'med/scripts/modernizr-2.6.2.js' %}"></script>
+</head>
+<style>
+   .table_dark {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 14px;
+  width: 640px;
+  text-align: left;
+  border-collapse: collapse;
+  background: #252F48;
+  margin: 10px;
+}
+.table_dark th {
+  color: #EDB749;
+  border-bottom: 1px solid #37B5A5;
+  padding: 12px 17px;
+}
+.table_dark td {
+  color: #CAD4D6;
+  border-bottom: 1px solid #37B5A5;
+  border-right:1px solid #37B5A5;
+  padding: 7px 17px;
+}
+.table_dark tr:last-child td {
+  border-bottom: none;
+}
+.table_dark td:last-child {
+  border-right: none;
+}
+.table_dark tr:hover td {
+  text-decoration: underline;
+}
+  </style>
+<body> 
+
+<section class="jumbotron text-center">
+    <div class="container">
+      <h1>Личный кабинет</h1>
+      <p class="lead text-muted">Рекомендации по здоровью: </p>
+      <p>
+
+      </p>
+    </div>
+  </section>
+<form class="needs-validation" novalidate="" method="post" action="/update_user">
+{% csrf_token %} 
+          <div class="col-md-3 mb-3">
+            <label for="id_age">Возраст </label>
+            <input type="number" class="form-control" id="id_age" name="age" placeholder="Укажите ваш возраст" required="" value={{user.profile.age}}>
+              </div>   
+          <div class="col-md-3 mb-3">
+            <label for="id_height">Рост</label>
+            <input type="number" class="form-control" id="id_height" name="height" placeholder="" required="" value={{user.profile.height}}>
+            <div class="invalid-feedback">
+               Укажите ваш рост
+            </div>
+             </div>   
+          <div class="col-md-3 mb-3">
+            <label for="id_weight">Вес</label>
+            <input type="number" class="form-control" id="id_weight" name="weight" placeholder="" required=""value= {{user.profile.weight}}>
+            <div class="invalid-feedback">
+               Укажите ваш вес
+            </div>
+          </div>
+         <div class="col-md-3 mb-3">
+            <label for="id_steps">Шаги в день</label>
+            <input type="number" class="form-control" id="id_steps" name="steps" placeholder="" required=""value= {{user.profile.steps}}>
+            <div class="invalid-feedback">
+               Укажите кол-во шагов в день
+            </div>
+          </div>
+		   
+        <hr class="mb-4"> 
+          <p align = "right"><button class="btn btn-primary  my-2" type="submit">Изменить</button>
+          {%if user.is_superuser%} 
+           <a href="/admin" class="btn btn-primary my-2">Админ панель</a>
+          {%endif%}
+          </p>
+      
+      </form>
+	  <div class = "container">
+	  <table class="table_dark">
+<tr>
+ <th>Фамилия</th>
+ <td>{{user.last_name}}</td>
+</tr>
+<tr>
+ <th>Имя</th>
+ <td>{{user.first_name}}</td>
+</tr>
+<tr>
+ <th>Телосложение</th>
+ <td>{{target}}</td>
+</tr>
+<tr>
+ <th>Активность</th>
+ <td>{{activ}}</td>
+</tr>
+<tr>
+ <th>Пол</th>
+ <td>{{gender}}</td>
+</tr>
+<tr>
+ <th>Ваше текущее здоровье!</th>
+ <td><label for="id_rate"></label> 
+  <h5 class="card-text" id="id_rate">
+{% if rate == 1 %}
+    <div>Риск посадить здоровье очень высок - необходимо больше активности и упражнений</div>
+{% elif rate == 2 %}
+    <div>Риск посадить здоровье есть, но если держать себя в правильной форме - все будет хорошо.</div>
+{% elif rate == 3 %}
+    <div>Вы в отличной форме</div>
+{% elif rate == 4 %}
+    <div>Можете иногда отдыхать от нагрузок.</div>
+{% elif rate == 5 %}
+    <div>Поберегите и старайтесь не нагружать себя!</div>
+{% endif %}
+</h5>
+</td>
+</tr>
+<tr>
+ <th>Вес- Рост - Возраст</th>
+ <td>{{user.profile.weight}} - {{user.profile.height}} - {{user.profile.age}} </td>
+</tr>
+<tr>
+ <th>Количество шагов в день</th>
+ <td>{{user.profile.steps}}</td>
+</tr>
+<tr>
+ <th>Рекомендация по шагомеру</th>
+ <td><label for="id_steps"></label> 
+  <h5 class="card-text" id="id_steps">
+{% if user.profile.steps <= 2000 %}
+    <div>Необходимо больше ходить</div>
+{% elif user.profile.steps <= 4000 %}
+    <div>Немного не хватает до нормы, но уже неплохо</div>
+{% elif user.profile.steps <= 6000 %}
+    <div>Замечательно, организм получает достаточную нагрузку</div>
+{% elif user.profile.steps <= 8000 %}
+    <div>Необходимо сбавить нагрузку и/или нагружать организм так не каждый день</div>
+{% elif user.profile.steps > 8000 %}
+    <div>Всё хорошо в меру! Уменьшайте количество шагов! </div>
+{% endif %}
+</h5></td>
+</tr>
+<tr>
+ <th>Питание</th>
+ <td>Необходимо {{calories}} калорий.</td>
+</tr> 
+<tr>
+    <th>Физические упражнения</th>
+    <td><a class="btn btn-primary" href="/static/med/file/trening.docx">Физические упражнения</a> </td>
+</tr>   
+<tr>
+    <th>Личный рацион</th>
+    <td><a class="btn btn-primary" href="/static/med/file/{{menyu}}.docx">Скачать правильное питание</a></td>
+</tr> 
+	  </div>
+
+{{steps}}         
+
+</body>
+</html>
+
+{% endblock %}

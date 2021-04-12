@@ -1,0 +1,23 @@
+﻿{% extends "med/layout.html" %}
+ 
+{% block content %}
+ 
+<html lang="ru">
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >   
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'med/content/bootstrap.min.css' %}" />
+    <script src="{% static 'med/scripts/modernizr-2.6.2.js' %}"></script>
+</head> 
+<body>  
+    <div class="starter-template">
+        <h1>{{prev.title}}</h1>
+        <xmp class="card-text">{{prev.text}}</xmp>  
+     <img src="/static/med/images/image_{{prev.image_id}}.jpg" vertical-align="center"  class="img-responsive"     />
+    </div> 
+</body>
+</html>
+
+{% endblock %}
